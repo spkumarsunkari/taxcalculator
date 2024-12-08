@@ -132,6 +132,34 @@ The application uses Swagger for API documentation. Once the application is runn
 ```
 http://localhost:8080/swagger-ui.html
 ```
+### JUnit Testing
+The application includes JUnit test cases to ensure the functionality works as expected. Tests are created for the main service classes and their logic.
+
+
+## Running the Tests
+You can run the test cases using Maven or your IDE:
+
+### 1. Using Maven Command Line
+``` bash
+mvn test
+```
+
+### 2.Verifying the test cases
+```bash
+mvn veify
+```
+You can verify the test report from target/report/surefile.html
+
+### 2. Using an IDE
+Most IDEs (IntelliJ, Eclipse, VSCode, etc.) support running test classes directly. Look for a "Run Tests" option in the test class.
+
+## Coverage
+The application includes JUnit test cases to validate:
+
+* Adding an employee.
+* Calculating employee tax deductions.
+* Handling employee not found errors.
+* Ensuring proper exception handling for edge cases.
 
 ## Application Health Monitoring
 Spring Actuator endpoints are enabled for application monitoring. You can access them at:
@@ -165,48 +193,3 @@ http://localhost:8080/actuator/health
   }
 }
 ```
-### JUnit Testing
-The application includes JUnit test cases to ensure the functionality works as expected. Tests are created for the main service classes and their logic.
-
-## Dependencies
-Make sure the following dependencies are available in your pom.xml for testing with JUnit 5:
-
-```xml
-Copy code
-<dependency>
-    <groupId>org.junit.jupiter</groupId>
-    <artifactId>junit-jupiter</artifactId>
-    <version>5.x.x</version>
-    <scope>test</scope>
-</dependency>
-<dependency>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-test</artifactId>
-    <scope>test</scope>
-</dependency>
-<dependency>
-    <groupId>org.mockito</groupId>
-    <artifactId>mockito-junit5</artifactId>
-    <scope>test</scope>
-</dependency>
-```
-
-## Running the Tests
-You can run the test cases using Maven or your IDE:
-
-### 1. Using Maven Command Line
-``` bash
-mvn test
-```
-
-### 2. Using an IDE
-Most IDEs (IntelliJ, Eclipse, VSCode, etc.) support running test classes directly. Look for a "Run Tests" option in the test class.
-
-## Coverage
-The application includes JUnit test cases to validate:
-
-* Adding an employee.
-* Calculating employee tax deductions.
-* Handling employee not found errors.
-* Ensuring proper exception handling for edge cases.
-
