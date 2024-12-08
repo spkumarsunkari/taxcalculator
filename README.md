@@ -25,21 +25,26 @@ git clone https://github.com/spkumarsunkari/taxcalculator.git
 ### Configuration
 Update the following properties in `application.properties` as needed:
 ```properties
-spring.datasource.url=jdbc:mysql://localhost:3306/tax_calculator
-spring.datasource.username=root
-spring.datasource.password=root
+spring.datasource.url=jdbc:mysql://<host>:<port>/<database_name>
+spring.datasource.username=<username>
+spring.datasource.password=<password>
 ```
 
 ### Database Setup
 Install MySQL and create a database:
 ```sql
-CREATE DATABASE tax_calculator;
+CREATE DATABASE <database_name>;
 ```
 
 ### Build the Application
 Use Maven to clean, compile, and package the application:
 ```bash
 mvn clean install
+```
+### Build the Package
+Use Maven to build the package
+```bash
+mvn build package
 ```
 
 ### Run the Application
@@ -56,7 +61,7 @@ java -jar target/tax-calculator-0.0.1-SNAPSHOT.jar
 ### 1. Add Employee
 **Endpoint**
 ```
-POST /api/employees
+POST http://localhost:8080/api/employees
 ```
 **Description**
 Adds a new employee to the system.
@@ -91,7 +96,7 @@ Adds a new employee to the system.
 ### 2. Get Tax Deductions
 **Endpoint**
 ```
-GET /api/employees/{employeeId}/tax-deductions
+GET http://localhost:8080/api/employees/{employeeId}/tax-deductions
 ```
 **Description**
 Fetches the tax deduction details for an employee by their employee ID.
@@ -128,8 +133,80 @@ The application uses Swagger for API documentation. Once the application is runn
 http://localhost:8080/swagger-ui.html
 ```
 
-## Monitoring
+## Application Health Monitoring
 Spring Actuator endpoints are enabled for application monitoring. You can access them at:
 ```
-http://localhost:8080/actuator
+http://localhost:8080/actuator/health
 ```
+```json
+{
+  "status": "UP",
+  "components": {
+    "db": {
+      "status": "UP",
+      "details": {
+        "database": "MySQL",
+        "validationQuery": "isValid()"
+      }
+    },
+    "diskSpace": {
+      "status": "UP",
+      "details": {
+        "total": 264393191424,
+        "free": 83266015232,
+        "threshold": 10485760,
+        "path": "C:\\Users\\Sai Prasanna Kumar\\Desktop\\taxcalculator\\.",
+        "exists": true
+      }
+    },
+    "ping": {
+      "status": "UP"
+    }
+  }
+}
+```
+### JUnit Testing
+The application includes JUnit test cases to ensure the functionality works as expected. Tests are created for the main service classes and their logic.
+
+## Dependencies
+Make sure the following dependencies are available in your pom.xml for testing with JUnit 5:
+
+```xml
+Copy code
+<dependency>
+    <groupId>org.junit.jupiter</groupId>
+    <artifactId>junit-jupiter</artifactId>
+    <version>5.x.x</version>
+    <scope>test</scope>
+</dependency>
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-test</artifactId>
+    <scope>test</scope>
+</dependency>
+<dependency>
+    <groupId>org.mockito</groupId>
+    <artifactId>mockito-junit5</artifactId>
+    <scope>test</scope>
+</dependency>
+```
+
+## Running the Tests
+You can run the test cases using Maven or your IDE:
+
+### 1. Using Maven Command Line
+``` bash
+mvn test
+```
+
+### 2. Using an IDE
+Most IDEs (IntelliJ, Eclipse, VSCode, etc.) support running test classes directly. Look for a "Run Tests" option in the test class.
+
+## Coverage
+The application includes JUnit test cases to validate:
+
+* Adding an employee.
+* Calculating employee tax deductions.
+* Handling employee not found errors.
+* Ensuring proper exception handling for edge cases.
+
